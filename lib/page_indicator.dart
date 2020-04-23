@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_screen/intro_screens.dart';
 
 class PageIndicator extends StatelessWidget {
   final int currentIndex;
   final int pageCount;
   final Color activeDotColor;
   final Color inactiveDotColor;
+  final IndicatorType type;
   final VoidCallback onTap;
 
   PageIndicator({
@@ -13,29 +16,34 @@ class PageIndicator extends StatelessWidget {
     this.activeDotColor,
     this.onTap,
     this.inactiveDotColor,
+    this.type,
   });
 
   _indicator(bool isActive) {
     return GestureDetector(
       onTap: this.onTap,
-      child: Expanded(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.0),
-          child: Container(
-            height: 4.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2.0),
-              color: isActive ? activeDotColor : inactiveDotColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(
-                    .15,
-                  ),
-                  offset: Offset(0.0, 2.0),
-                  blurRadius: 2.0,
-                )
-              ],
-            ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 6.0),
+        child: Container(
+          height: type == IndicatorType.CIRCLE ? 8.0 : 4.8,
+          width: type == IndicatorType.CIRCLE ? 8.0 : 24.0,
+          decoration: BoxDecoration(
+            borderRadius: type == IndicatorType.CIRCLE
+                ? null
+                : BorderRadius.circular(50.0),
+            shape: type == IndicatorType.CIRCLE
+                ? BoxShape.circle
+                : BoxShape.rectangle,
+            color: isActive ? activeDotColor : inactiveDotColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(
+                  .02,
+                ),
+                offset: Offset(0.0, 2.0),
+                blurRadius: 2.0,
+              )
+            ],
           ),
         ),
       ),
@@ -54,6 +62,7 @@ class PageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: _buildPageIndicators(),
     );
   }

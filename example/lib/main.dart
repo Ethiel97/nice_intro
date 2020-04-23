@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:intro_screen/intro_screens.dart';
+import 'package:intro_screen/page_view_model.dart';
+import 'package:tinycolor/tinycolor.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Nice Button Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  MyHomePageState createState() {
+    return MyHomePageState();
+  }
+}
+
+class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: IntroScreens(
+      footerBgColor: TinyColor(Colors.blue).lighten().color,
+      activeDotColor: Colors.white,
+//      indicatorType: IndicatorType.CIRCLE,
+      pages: [
+        IntroScreen(
+          title: 'Search',
+          imageAsset: 'assets/img/1.png',
+          description: 'Quickly find all your messages',
+          headerBgColor: Colors.white,
+        ),
+        IntroScreen(
+          title: 'Focused Inbox',
+          headerBgColor: Colors.white,
+          imageAsset: 'assets/img/2.png',
+          description: "We've put your most important, actionable emails here",
+        ),
+        IntroScreen(
+          title: 'Social',
+          headerBgColor: Colors.white,
+          imageAsset: 'assets/img/3.png',
+          description: "Keep talking with your mates",
+        ),
+      ],
+    ));
+  }
+}
