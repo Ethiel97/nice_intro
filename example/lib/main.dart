@@ -29,11 +29,11 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: IntroScreens(
+    var screens = IntroScreens(
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
-//      indicatorType: IndicatorType.CIRCLE,
+      footerRadius: 18.0,
+      indicatorType: IndicatorType.LINE,
       pages: [
         IntroScreen(
           title: 'Search',
@@ -54,6 +54,10 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           description: "Keep talking with your mates",
         ),
       ],
-    ));
+    );
+
+    return Scaffold(
+      body: screens,
+    );
   }
 }

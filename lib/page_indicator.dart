@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_screen/intro_screens.dart';
@@ -24,28 +26,7 @@ class PageIndicator extends StatelessWidget {
       onTap: this.onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 6.0),
-        child: Container(
-          height: type == IndicatorType.CIRCLE ? 8.0 : 4.8,
-          width: type == IndicatorType.CIRCLE ? 8.0 : 24.0,
-          decoration: BoxDecoration(
-            borderRadius: type == IndicatorType.CIRCLE
-                ? null
-                : BorderRadius.circular(50.0),
-            shape: type == IndicatorType.CIRCLE
-                ? BoxShape.circle
-                : BoxShape.rectangle,
-            color: isActive ? activeDotColor : inactiveDotColor,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(
-                  .02,
-                ),
-                offset: Offset(0.0, 2.0),
-                blurRadius: 2.0,
-              )
-            ],
-          ),
-        ),
+        child: buildIndicatorShape(type, isActive),
       ),
     );
   }
@@ -64,6 +45,67 @@ class PageIndicator extends StatelessWidget {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: _buildPageIndicators(),
+    );
+  }
+
+  Widget buildIndicatorShape(type, isActive) {
+    if (type == IndicatorType.CIRCLE) {
+      return Container(
+        height: 8.0,
+        width: 8.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isActive ? activeDotColor : inactiveDotColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(
+                .02,
+              ),
+              offset: Offset(0.0, 2.0),
+              blurRadius: 2.0,
+            )
+          ],
+        ),
+      );
+    } else if (type == IndicatorType.LINE) {
+      return Container(
+        height: 4.8,
+        width: 24.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(50),
+          color: isActive ? activeDotColor : inactiveDotColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(
+                .02,
+              ),
+              offset: Offset(0.0, 2.0),
+              blurRadius: 2.0,
+            )
+          ],
+        ),
+      );
+    }
+    return Transform.rotate(
+      angle: pi / 4,
+      child: Container(
+        height: 8.0,
+        width: 8.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: isActive ? activeDotColor : inactiveDotColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(
+                .02,
+              ),
+              offset: Offset(0.0, 2.0),
+              blurRadius: 2.0,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

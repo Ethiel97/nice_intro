@@ -20,6 +20,9 @@ class IntroScreens extends StatefulWidget {
 
   final String appTitle;
 
+  final double footerRadius;
+  final double viewPortFraction;
+
   @required
   final List<IntroScreen> pages;
 
@@ -45,29 +48,29 @@ class IntroScreens extends StatefulWidget {
 
   const IntroScreens({
     this.pages,
+    this.footerRadius = 12.0,
     this.footerGradients = const [],
     this.onDone,
-    this.indicatorType = IndicatorType.CIRCLE,
+    this.indicatorType = IndicatorType.DIAMOND,
     this.appTitle = '',
     this.onSkip,
     this.activeDotColor = Colors.white,
-    this.inactiveDotColor = Colors.white70,
+    this.inactiveDotColor = Colors.white54,
     this.skipButtonText = 'skip',
+    this.viewPortFraction = 1.0,
     this.textColor = Colors.white,
     this.footerPadding = const EdgeInsets.all(24),
-    this.footerBgColor,
+    this.footerBgColor = const Color(0xff51adf6),
   }) : assert(pages.length > 0);
 }
 
 class _IntroScreensState extends State<IntroScreens>
     with TickerProviderStateMixin {
   PageController _controller;
+  double pageOffset = 0;
   int currentPage = 0;
   bool lastPage = false;
-  AnimationController animationController, slideAnimationController;
-  Animation<double> _scaleAnimation, _fadeAnimation;
-  Animation<Offset> _slideTransition;
-
+  AnimationController animationController;
   IntroScreen currentScreen;
 
   @override
@@ -75,23 +78,15 @@ class _IntroScreensState extends State<IntroScreens>
     super.initState();
     _controller = PageController(
       initialPage: currentPage,
-    );
+      viewportFraction: widget.viewPortFraction,
+    )..addListener(() {
+        pageOffset = _controller.page;
+      });
 
     currentScreen = widget.pages[0];
 
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
-
-    slideAnimationController =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
-
-    _scaleAnimation = Tween(begin: 0.6, end: 1.0).animate(animationController);
-
-    _fadeAnimation =
-        Tween(begin: 0.2, end: 1.0).animate(slideAnimationController);
-
-    _slideTransition = Tween(begin: Offset(-1, -0), end: Offset(0, 0))
-        .animate(slideAnimationController);
   }
 
   TextStyle get textStyle =>
@@ -103,8 +98,6 @@ class _IntroScreensState extends State<IntroScreens>
   void dispose() {
     _controller.dispose();
     animationController.dispose();
-    slideAnimationController.dispose();
-
     super.dispose();
   }
 
@@ -122,8 +115,8 @@ class _IntroScreensState extends State<IntroScreens>
           ],
         );
 
-  playAnimation() {
-    slideAnimationController.forward();
+  int getCurrentPage() {
+    return _controller.page.floor();
   }
 
   @override
@@ -146,63 +139,44 @@ class _IntroScreensState extends State<IntroScreens>
           fit: StackFit.expand,
           children: <Widget>[
             PageView.builder(
-              itemCount: widget.pages.length,
-              onPageChanged: (index) {
-                setState(() {
-                  currentPage = index;
-                  currentScreen = widget.pages[currentPage];
-                  if (currentPage == widget.pages.length - 1) {
-                    lastPage = true;
-                    animationController.forward();
-                  } else {
-                    lastPage = false;
-                    animationController.reverse();
+                itemCount: widget.pages.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentPage = index;
+                    currentScreen = widget.pages[currentPage];
+                    if (currentPage == widget.pages.length - 1) {
+                      lastPage = true;
+                      animationController.forward();
+                    } else {
+                      lastPage = false;
+                      animationController.reverse();
+                    }
+                  });
+                },
+                controller: _controller,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  if (index == pageOffset.floor()) {
+                    return AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, _) {
+                          return buildPage(
+                            index: index,
+                            angle: pageOffset - index,
+                          );
+                        });
+                  } else if (index == pageOffset.floor() + 1) {
+                    return AnimatedBuilder(
+                        animation: _controller,
+                        builder: (context, _) {
+                          return buildPage(
+                            index: index,
+                            angle: pageOffset - index,
+                          );
+                        });
                   }
-                });
-              },
-              controller: _controller,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) {
-                return AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, _) {
-                      return FutureBuilder(
-                        future: playAnimation(),
-                        builder: (context, snapshot) => FadeTransition(
-                          opacity: _fadeAnimation,
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: <Widget>[
-                              SlideTransition(
-                                position: _slideTransition,
-                                child: widget.pages[index],
-                              ),
-                              Positioned.fill(
-                                left: 0,
-                                right: 0,
-                                bottom: 12,
-                                top: MediaQuery.of(context).size.height * .45,
-                                child: ClipRect(
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(
-                                      sigmaX: 1.0,
-                                      sigmaY: 1.0,
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      color: currentScreen.headerBgColor
-                                          .withOpacity(.002),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-              },
-            ),
+                  return buildPage(index: index);
+                }),
 
             //footer widget
             Positioned.fill(
@@ -213,6 +187,10 @@ class _IntroScreensState extends State<IntroScreens>
               child: Container(
                 padding: widget.footerPadding,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(widget.footerRadius.toDouble()),
+                    topLeft: Radius.circular(widget.footerRadius.toDouble()),
+                  ),
                   color: widget.footerBgColor,
                   gradient: gradients,
                 ),
@@ -344,6 +322,39 @@ class _IntroScreensState extends State<IntroScreens>
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildPage({int index, double angle = 0.0, double scale = 1.0}) {
+    print(pageOffset - index);
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Transform(
+          child: widget.pages[index],
+          transform: Matrix4.identity()
+            ..setEntry(3, 2, .001)
+            ..rotateY(angle),
+        ),
+        Positioned.fill(
+          left: 0,
+          right: 0,
+          bottom: 12,
+          top: MediaQuery.of(context).size.height * .45,
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 1.0,
+                sigmaY: 1.0,
+              ),
+              child: Container(
+                width: double.infinity,
+                color: currentScreen.headerBgColor.withOpacity(.002),
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
