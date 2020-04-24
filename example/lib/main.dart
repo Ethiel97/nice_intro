@@ -33,7 +33,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
       footerRadius: 18.0,
-      indicatorType: IndicatorType.LINE,
+      indicatorType: IndicatorType.DIAMOND,
       pages: [
         IntroScreen(
           title: 'Search',

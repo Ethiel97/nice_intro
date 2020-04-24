@@ -49,63 +49,39 @@ class PageIndicator extends StatelessWidget {
   }
 
   Widget buildIndicatorShape(type, isActive) {
-    if (type == IndicatorType.CIRCLE) {
-      return Container(
-        height: 8.0,
-        width: 8.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isActive ? activeDotColor : inactiveDotColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(
-                .02,
-              ),
-              offset: Offset(0.0, 2.0),
-              blurRadius: 2.0,
-            )
-          ],
-        ),
-      );
-    } else if (type == IndicatorType.LINE) {
-      return Container(
-        height: 4.8,
-        width: 24.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(50),
-          color: isActive ? activeDotColor : inactiveDotColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(
-                .02,
-              ),
-              offset: Offset(0.0, 2.0),
-              blurRadius: 2.0,
-            )
-          ],
-        ),
-      );
-    }
     return Transform.rotate(
-      angle: pi / 4,
-      child: Container(
-        height: 8.0,
-        width: 8.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: isActive ? activeDotColor : inactiveDotColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(
-                .02,
-              ),
-              offset: Offset(0.0, 2.0),
-              blurRadius: 2.0,
-            )
-          ],
-        ),
+      angle: type == IndicatorType.DIAMOND ? pi / 4 : 0.0,
+      child: AnimatedContainer(
+        height: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
+            ? 8.0
+            : 4.8,
+        width: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
+            ? 8.0
+            : 24.0,
+        duration: Duration(milliseconds: 300),
+        decoration: decoration(isActive, type),
       ),
+    );
+  }
+
+  BoxDecoration decoration(bool isActive, type) {
+    return BoxDecoration(
+      shape:
+          type == IndicatorType.CIRCLE ? BoxShape.circle : BoxShape.rectangle,
+      color: isActive ? activeDotColor : inactiveDotColor,
+      borderRadius:
+          type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
+              ? null
+              : BorderRadius.circular(50),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(
+            .02,
+          ),
+          offset: Offset(0.0, 2.0),
+          blurRadius: 2.0,
+        )
+      ],
     );
   }
 }

@@ -55,7 +55,7 @@ class IntroScreens extends StatefulWidget {
     this.appTitle = '',
     this.onSkip,
     this.activeDotColor = Colors.white,
-    this.inactiveDotColor = Colors.white54,
+    this.inactiveDotColor,
     this.skipButtonText = 'skip',
     this.viewPortFraction = 1.0,
     this.textColor = Colors.white,
@@ -264,7 +264,8 @@ class _IntroScreensState extends State<IntroScreens>
                           type: widget.indicatorType,
                           currentIndex: currentPage,
                           activeDotColor: widget.activeDotColor,
-                          inactiveDotColor: widget.inactiveDotColor,
+                          inactiveDotColor: widget.inactiveDotColor ??
+                              widget.activeDotColor.withOpacity(.5),
                           pageCount: widget.pages.length,
                           onTap: () {
                             _controller.animateTo(
