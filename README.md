@@ -9,11 +9,11 @@ Onboarding is a great way to introduce your app to newcomers, to help them quick
 [![pub package](https://img.shields.io/pub/v/nice_button.svg)](https://pub.dev/packages/intro_screen)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/devEnthusiast?locale.x=en_US)
 
-A Flutter package for Android and IOS to design nice buttons with no hassle in your app. Enjoy !
+A Flutter package to build awesome intro slides for your apps.
 
 ## Demo
 
-This is somehow what you'll get by using this package in your mobile app :)
+This is somehow what you can expect from this package :)
 
 ![Package Demo](demos/demo.gif)
 ![package demo](demos/demo_1.png)
