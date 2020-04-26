@@ -24,7 +24,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.0
+  nice_intro: ^0.1.1
 ```
 
 ## Usage Example

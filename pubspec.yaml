@@ -1,6 +1,6 @@
 name: nice_intro
-description: Get your users to know your app with ease
-version: 0.1.0
+description: Get your users to know your app with ease! This package will help you build beautiful intro sides for your app.
+version: 0.1.1
 homepage: https://github.com/Ethiel97/nice_intro
 
 environment:
