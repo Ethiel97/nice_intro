@@ -20,12 +20,10 @@ This is somehow what you can expect from this package :)
 
 ## Installation
 
-Add the following to pubspec.yaml
+Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  ...
-  ...
   nice_intro: ^0.1.0
 ```
 
