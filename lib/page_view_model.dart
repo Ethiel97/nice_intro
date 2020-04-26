@@ -6,25 +6,37 @@ class IntroScreen extends StatelessWidget {
   ///
   ///
 
+  /// title of your slide
+  ///[String]
   final String title;
 
+  ///description of your slide
+  ///[String]
   final String description;
 
+  ///image path for your slide
+  ///[String]
   final String imageAsset;
 
+  ///textStyle for your slide
+  ///[TextStyle]
   final TextStyle textStyle;
 
+  ///background color for your slide header
+  ///[Color]
   final Color headerBgColor;
 
+  ///padding for the your slide header
+  ///[EdgeInsets]
   final EdgeInsets headerPadding;
 
   const IntroScreen({
-    this.title,
+    @required this.title,
     this.headerPadding = const EdgeInsets.all(12),
-    this.description,
+    @required this.description,
     this.headerBgColor = Colors.white,
     this.textStyle,
-    this.imageAsset,
+    @required this.imageAsset,
   })  : assert(imageAsset != null),
         assert(title != null),
         assert(description != null),

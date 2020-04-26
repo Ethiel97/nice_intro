@@ -16,52 +16,86 @@ class IntroScreens extends StatefulWidget {
   @override
   _IntroScreensState createState() => _IntroScreensState();
 
+  ///sets the indicator type for your slides
+  ///[IndicatorType]
   final IndicatorType indicatorType;
+
+  ///sets the next widget, the one used to move to the next screen
+  ///[Widget]
+  final Widget nextWidget;
+
+  ///sets the done widget, the one used to end the slides
+  ///[Widget]
+  final Widget doneWidget;
 
   final String appTitle;
 
+  ///set the radius of the footer part of your slides
+  ///[double]
   final double footerRadius;
+
+  ///sets the viewport fraction of your controller
+  ///[double]
   final double viewPortFraction;
 
-  @required
-  final List<IntroScreen> pages;
+  ///sets your slides
+  ///[List<IntroScreen>]
+  final List<IntroScreen> slides;
 
-  final String skipButtonText;
+  ///sets the skip widget text
+  ///[String]
+  final String skipText;
 
-  @required
+  ///defines what to do when the skip button is tapped
+  ///[Function]
   final Function onSkip;
 
-  @required
+  ///defines what to do when the last slide is reached
+  ///[Function]
   final Function onDone;
 
+  /// set the color of the active indicator
+  ///[Color]
   final Color activeDotColor;
 
+  ///set the color of an inactive indicator
+  ///[Color]
   final Color inactiveDotColor;
 
+  ///sets the padding of the footer part of your slides
+  ///[EdgeInsets]
   final EdgeInsets footerPadding;
 
+  ///sets the background color of the footer part of your slides
+  ///[Color]
   final Color footerBgColor;
 
+  ///sets the text color of your slides
+  ///[Color]
   final Color textColor;
 
+  ///sets the colors of the gradient for the footer widget of your slides
+  ///[List<Color>]
   final List<Color> footerGradients;
 
   const IntroScreens({
-    this.pages,
+    @required this.slides,
     this.footerRadius = 12.0,
     this.footerGradients = const [],
-    this.onDone,
-    this.indicatorType = IndicatorType.DIAMOND,
+    @required this.onDone,
+    this.indicatorType = IndicatorType.CIRCLE,
     this.appTitle = '',
-    this.onSkip,
+    @required this.onSkip,
+    this.nextWidget,
+    this.doneWidget,
     this.activeDotColor = Colors.white,
     this.inactiveDotColor,
-    this.skipButtonText = 'skip',
+    this.skipText = 'skip',
     this.viewPortFraction = 1.0,
     this.textColor = Colors.white,
     this.footerPadding = const EdgeInsets.all(24),
     this.footerBgColor = const Color(0xff51adf6),
-  }) : assert(pages.length > 0);
+  }) : assert(slides.length > 0);
 }
 
 class _IntroScreensState extends State<IntroScreens>
@@ -83,7 +117,7 @@ class _IntroScreensState extends State<IntroScreens>
         pageOffset = _controller.page;
       });
 
-    currentScreen = widget.pages[0];
+    currentScreen = widget.slides[0];
 
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
@@ -93,6 +127,22 @@ class _IntroScreensState extends State<IntroScreens>
       currentScreen.textStyle ??
       GoogleFonts.lato(
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal);
+
+  Widget get next =>
+      this.widget.nextWidget ??
+      Icon(
+        Icons.arrow_forward,
+        size: 28,
+        color: widget.textColor,
+      );
+
+  Widget get done =>
+      this.widget.doneWidget ??
+      Icon(
+        Icons.check,
+        size: 28,
+        color: widget.textColor,
+      );
 
   @override
   void dispose() {
@@ -139,12 +189,12 @@ class _IntroScreensState extends State<IntroScreens>
           fit: StackFit.expand,
           children: <Widget>[
             PageView.builder(
-                itemCount: widget.pages.length,
+                itemCount: widget.slides.length,
                 onPageChanged: (index) {
                   setState(() {
                     currentPage = index;
-                    currentScreen = widget.pages[currentPage];
-                    if (currentPage == widget.pages.length - 1) {
+                    currentScreen = widget.slides[currentPage];
+                    if (currentPage == widget.slides.length - 1) {
                       lastPage = true;
                       animationController.forward();
                     } else {
@@ -250,7 +300,7 @@ class _IntroScreensState extends State<IntroScreens>
                           opacity: lastPage ? 0.0 : 1.0,
                           child: FlatButton(
                             child: Text(
-                              widget.skipButtonText.toUpperCase(),
+                              widget.skipText.toUpperCase(),
                               style: textStyle,
                             ),
                             onPressed: widget.onSkip,
@@ -266,7 +316,7 @@ class _IntroScreensState extends State<IntroScreens>
                           activeDotColor: widget.activeDotColor,
                           inactiveDotColor: widget.inactiveDotColor ??
                               widget.activeDotColor.withOpacity(.5),
-                          pageCount: widget.pages.length,
+                          pageCount: widget.slides.length,
                           onTap: () {
                             _controller.animateTo(
                               _controller.page,
@@ -282,18 +332,10 @@ class _IntroScreensState extends State<IntroScreens>
                       lastPage
                           ? FlatButton(
                               onPressed: widget.onDone,
-                              child: Icon(
-                                Icons.check,
-                                size: 28,
-                                color: widget.textColor,
-                              ),
+                              child: done,
                             )
                           : FlatButton(
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 28,
-                                color: widget.textColor,
-                              ),
+                              child: next,
                               onPressed: () {
                                 _controller.nextPage(
                                     duration: Duration(milliseconds: 800),
@@ -332,7 +374,7 @@ class _IntroScreensState extends State<IntroScreens>
       fit: StackFit.expand,
       children: <Widget>[
         Transform(
-          child: widget.pages[index],
+          child: widget.slides[index],
           transform: Matrix4.identity()
             ..setEntry(3, 2, .001)
             ..rotateY(angle),

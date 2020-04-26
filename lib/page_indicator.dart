@@ -44,22 +44,29 @@ class PageIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: _buildPageIndicators(),
     );
   }
 
   Widget buildIndicatorShape(type, isActive) {
-    return Transform.rotate(
-      angle: type == IndicatorType.DIAMOND ? pi / 4 : 0.0,
-      child: AnimatedContainer(
-        height: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
-            ? 8.0
-            : 4.8,
-        width: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
-            ? 8.0
-            : 24.0,
-        duration: Duration(milliseconds: 300),
-        decoration: decoration(isActive, type),
+    double scaleFactor = isActive ? 1.4 : 1.0;
+    double angle = type == IndicatorType.DIAMOND ? pi / 4 : 0.0;
+    return Transform.scale(
+      scale: scaleFactor,
+      child: Transform.rotate(
+        angle: angle,
+//      angle: type == IndicatorType.DIAMOND ? pi / 4 : 0.0,
+        child: AnimatedContainer(
+          height: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
+              ? 8.0
+              : 4.8,
+          width: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
+              ? 8.0
+              : 24.0,
+          duration: Duration(milliseconds: 300),
+          decoration: decoration(isActive, type),
+        ),
       ),
     );
   }

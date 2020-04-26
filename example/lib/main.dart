@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Nice Button Demo',
+      title: 'intro screen demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -33,8 +33,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
       footerRadius: 18.0,
-      indicatorType: IndicatorType.DIAMOND,
-      pages: [
+//      indicatorType: IndicatorType.CIRCLE,
+      slides: [
         IntroScreen(
           title: 'Search',
           imageAsset: 'assets/img/1.png',
