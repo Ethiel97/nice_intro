@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nice_intro/intro_screen.dart';
+import 'package:nice_intro/intro_screens.dart';
 import 'package:tinycolor/tinycolor.dart';
 
 void main() => runApp(MyApp());

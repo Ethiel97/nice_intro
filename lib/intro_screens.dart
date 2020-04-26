@@ -368,7 +368,7 @@ class _IntroScreensState extends State<IntroScreens>
   }
 
   Widget buildPage({int index, double angle = 0.0, double scale = 1.0}) {
-    print(pageOffset - index);
+    // print(pageOffset - index);
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[

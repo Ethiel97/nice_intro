@@ -1,7 +1,7 @@
 name: nice_intro
 description: Get your users to know your app with ease
 version: 0.1.0
-homepage: https://github.com/Ethiel97/intro_screen
+homepage: https://github.com/Ethiel97/nice_intro
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
