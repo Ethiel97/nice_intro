@@ -86,8 +86,8 @@ And pass it to your scaffold widget.
 
 #### IntroScreen widget's properties
 
-| Name  |  Type |  Default |Description   |
-|---|---|---|---|---|
+| Name  |  Type |  Default |Description|
+|---|---|---|---|
 |  title | `String`  | required  |Set the title of your slide  screen   |
 | description  | `String`  |required  | Set the description of your slide screen  |
 | imageAsset  |`String`   | required  |Set the image path of your slide screen  |
@@ -98,7 +98,7 @@ And pass it to your scaffold widget.
 #### IntroScreens widget's properties
 
 | Name  |  Type |  Default |Description   |
-|---|---|---|---|---|
+|---|---|---|---|
 | slides | `List<IntroScreen>`  | required  |list of your slides   |
 | onDone  | `Function`  | required |  Set the action to do when the last slide is reached |
 | onSkip  | `Function`  |  required |  Set the action to do when the user skips the slides |
