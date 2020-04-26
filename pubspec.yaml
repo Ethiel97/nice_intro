@@ -1,7 +1,6 @@
 name: intro_screen
 description: Get your users to know your app with ease
 version: 0.1.0
-author: Ethiel ADIASSA <ethiel97@gmail.com>
 homepage: https://github.com/Ethiel97/intro_screen
 
 environment:
