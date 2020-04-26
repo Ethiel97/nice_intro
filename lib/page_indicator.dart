@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intro_screen/intro_screens.dart';
+import 'package:nice_intro/intro_screens.dart';
 
 class PageIndicator extends StatelessWidget {
   final int currentIndex;

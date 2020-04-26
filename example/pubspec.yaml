@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   tinycolor: ^1.0.2
-  intro_screen:
+  nice_intro:
     path: ../
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

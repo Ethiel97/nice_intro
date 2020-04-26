@@ -1,4 +1,4 @@
-# intro_screen
+# nice_intro
 
 Get your users to know your app with ease
 
@@ -26,7 +26,7 @@ Add the following to pubspec.yaml
 dependencies:
   ...
   ...
-  intro_screen: ^0.1.0
+  nice_intro: ^0.1.0
 ```
 
 ## Usage Example

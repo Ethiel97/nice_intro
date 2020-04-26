@@ -1,12 +1,11 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intro_screen/page_indicator.dart';
-import 'package:intro_screen/page_view_model.dart';
+import 'package:nice_intro/page_indicator.dart';
 import 'package:tinycolor/tinycolor.dart';
+import 'intro_screen.dart';
 
 enum IndicatorType { CIRCLE, LINE, DIAMOND }
 
