@@ -30,6 +30,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var screens = IntroScreens(
+      onDone: () => print('End of slides'),
+      onSkip: () => print('Skipping the intro slides'),
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
       footerRadius: 18.0,

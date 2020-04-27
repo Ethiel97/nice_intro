@@ -32,8 +32,8 @@ dependencies:
 First, import the following files
 
 ```dart
-import 'package:intro_screen/intro_screens.dart';
-import 'package:intro_screen/page_view_model.dart';
+import 'package:nice_intro/intro_screen.dart';
+import 'package:nice_intro/intro_screens.dart';
 ```
 
 Then, create a list of screens each one with the `IntroSreen` class:
