@@ -24,7 +24,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.1
+  nice_intro: ^0.1.2
 ```
 
 ## Usage Example
@@ -115,9 +115,9 @@ And pass it to your scaffold widget.
 
 #### IndicatorType enum properties
 
-* IndicatoryType.CIRCLE
-* IndicatoryType.LINE
-* IndicatoryType.DIAMOND
+* IndicatorType.CIRCLE
+* IndicatorType.LINE
+* IndicatorType.DIAMOND
 
 Now enjoy!
 
