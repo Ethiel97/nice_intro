@@ -6,7 +6,7 @@ Get your users to know your app with ease
 
 Onboarding is a great way to introduce your app to newcomers, to help them quickly adapt to the new conditions so that they can get the most out of your app
 
-[![pub package](https://img.shields.io/pub/v/nice_button.svg)](https://pub.dev/packages/intro_screen)
+![Pub Version](https://img.shields.io/pub/v/nice_intro)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/devEnthusiast?locale.x=en_US)
 
 A Flutter package to build awesome intro slides for your apps.
