@@ -30,7 +30,11 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     var screens = IntroScreens(
-      onDone: () => print('End of slides'),
+      onDone: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => NextPage(),
+        ),
+      ),
       onSkip: () => print('Skipping the intro slides'),
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
@@ -60,6 +64,20 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
     return Scaffold(
       body: screens,
+    );
+  }
+}
+
+class NextPage extends StatefulWidget {
+  @override
+  _NextPageState createState() => _NextPageState();
+}
+
+class _NextPageState extends State<NextPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
     );
   }
 }

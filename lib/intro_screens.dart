@@ -1,10 +1,12 @@
 import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nice_intro/page_indicator.dart';
 import 'package:tinycolor/tinycolor.dart';
+
 import 'intro_screen.dart';
 
 enum IndicatorType { CIRCLE, LINE, DIAMOND }
@@ -77,6 +79,10 @@ class IntroScreens extends StatefulWidget {
   ///[List<Color>]
   final List<Color> footerGradients;
 
+  ///[ScrollPhysics]
+  ///sets the physics for the page view
+  final ScrollPhysics physics;
+
   const IntroScreens({
     @required this.slides,
     this.footerRadius = 12.0,
@@ -84,6 +90,7 @@ class IntroScreens extends StatefulWidget {
     @required this.onDone,
     this.indicatorType = IndicatorType.CIRCLE,
     this.appTitle = '',
+    this.physics = const BouncingScrollPhysics(),
     @required this.onSkip,
     this.nextWidget,
     this.doneWidget,
@@ -188,44 +195,46 @@ class _IntroScreensState extends State<IntroScreens>
           fit: StackFit.expand,
           children: <Widget>[
             PageView.builder(
-                itemCount: widget.slides.length,
-                onPageChanged: (index) {
-                  setState(() {
-                    currentPage = index;
-                    currentScreen = widget.slides[currentPage];
-                    if (currentPage == widget.slides.length - 1) {
-                      lastPage = true;
-                      animationController.forward();
-                    } else {
-                      lastPage = false;
-                      animationController.reverse();
-                    }
-                  });
-                },
-                controller: _controller,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  if (index == pageOffset.floor()) {
-                    return AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, _) {
-                          return buildPage(
-                            index: index,
-                            angle: pageOffset - index,
-                          );
-                        });
-                  } else if (index == pageOffset.floor() + 1) {
-                    return AnimatedBuilder(
-                        animation: _controller,
-                        builder: (context, _) {
-                          return buildPage(
-                            index: index,
-                            angle: pageOffset - index,
-                          );
-                        });
+              itemCount: widget.slides.length,
+              onPageChanged: (index) {
+                setState(() {
+                  currentPage = index;
+                  currentScreen = widget.slides[currentPage];
+                  if (currentPage == widget.slides.length - 1) {
+                    lastPage = true;
+                    animationController.forward();
+                  } else {
+                    lastPage = false;
+                    animationController.reverse();
                   }
-                  return buildPage(index: index);
-                }),
+                });
+              },
+              controller: _controller,
+              physics: widget.physics,
+              itemBuilder: (context, index) {
+                if (index == pageOffset.floor()) {
+                  return AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, _) {
+                        return buildPage(
+                          index: index,
+                          angle: pageOffset - index,
+                        );
+                      });
+                } else if (index == pageOffset.floor() + 1) {
+                  return AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, _) {
+                      return buildPage(
+                        index: index,
+                        angle: pageOffset - index,
+                      );
+                    },
+                  );
+                }
+                return buildPage(index: index);
+              },
+            ),
 
             //footer widget
             Positioned.fill(
@@ -369,34 +378,11 @@ class _IntroScreensState extends State<IntroScreens>
 
   Widget buildPage({int index, double angle = 0.0, double scale = 1.0}) {
     // print(pageOffset - index);
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Transform(
-          child: widget.slides[index],
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, .001)
-            ..rotateY(angle),
-        ),
-        Positioned.fill(
-          left: 0,
-          right: 0,
-          bottom: 12,
-          top: MediaQuery.of(context).size.height * .45,
-          child: ClipRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 1.0,
-                sigmaY: 1.0,
-              ),
-              child: Container(
-                width: double.infinity,
-                color: currentScreen.headerBgColor.withOpacity(.002),
-              ),
-            ),
-          ),
-        )
-      ],
+    return Transform(
+      child: widget.slides[index],
+      transform: Matrix4.identity()
+        ..setEntry(3, 2, .001)
+        ..rotateY(angle),
     );
   }
 }

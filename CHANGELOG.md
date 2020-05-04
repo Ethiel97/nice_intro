@@ -10,3 +10,9 @@
 ## [0.1.2] - [2020-04-27]
 
 * Minor update: update the doc and the example
+
+
+## [0.1.3] - [2020-05-04]
+
+* Minor update: updates the doc and the example
+* Add `physic` parameter to the `IntroScreens` class

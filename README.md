@@ -24,7 +24,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.2
+  nice_intro: ^0.1.3
 ```
 
 ## Usage Example
@@ -64,10 +64,10 @@ List<IntroScreen> pages =  [
 
 You'll come up with a list of nice slides screens.
 
-Finally, pass the pages to an instance of `IntroScreen class`:
+Finally, pass the pages to an instance of `IntroScreens class`:
 
 ```
-IntroScreen introScreen = IntroScreens(
+IntroScreens introScreens = IntroScreens(
       footerBgColor: TinyColor(Colors.blue).lighten().color,
       activeDotColor: Colors.white,
       footerRadius: 18.0,
@@ -75,7 +75,7 @@ IntroScreen introScreen = IntroScreens(
       pages:pages
 
     return Scaffold(
-      body: introScreen,
+      body: introScreens,
     );
 ```
 And pass it to your scaffold widget.
@@ -84,34 +84,35 @@ And pass it to your scaffold widget.
 
 #### IntroScreen widget's properties
 
-| Name  |  Type |  Default |Description|
+| Name  |  Type |  Default | Description |
 |---|---|---|---|
 |  title | `String`  | required  |Set the title of your slide  screen   |
-| description  | `String`  |required  | Set the description of your slide screen  |
-| imageAsset  |`String`   | required  |Set the image path of your slide screen  |
-| textStyle  |`TextStyle`   | null  |Set the style of the title and description of your slide|
-| headerBgColor  | `Color`  | `Colors.white`  | Set the background color of the slide  |
+| description  | `String`  | required | Set the description of your slide screen  |
+| imageAsset  |`String`   | required | Set the image path of your slide screen  |
+| textStyle  |`TextStyle`  | null  | Set the style of the title and description of your slide|
+| headerBgColor  | `Color` | `Colors.white`  | Set the background color of the slide  |
 | headerPadding  | `EdgeInsets`  |  `EdgeInsets.all(12)` |  Set the padding of the header part of your slide screen  |
 
 #### IntroScreens widget's properties
 
-| Name  |  Type |  Default |Description   |
+| Name  |  Type |  Default | Description |
 |---|---|---|---|
-| slides | `List<IntroScreen>`  | required  |list of your slides   |
-| onDone  | `Function`  | required |  Set the action to do when the last slide is reached |
-| onSkip  | `Function`  |  required |  Set the action to do when the user skips the slides |
-| footerRadius  | `double`  |12.0  | Set the radius of the footer part of your slides  |
-| footerBgColor  |`Color`   | `Color(0xff51adf6)`  |Set the background color of the footer part of your slides  |
-| footerGradients  |`List<Color>`   | []  |Set the list of colors for the gradient of the footer part of your slides  |
-| footerPadding  | `EdgeInsets`  |  `EdgeInsets.all(24)` |  Set the padding of the footer part of your slides |
+| slides | `List<IntroScreen>`  | required  | list of your slides |
+| onDone | `Function`  | required |  Set the action to do when the last slide is reached |
+| onSkip | `Function`  |  required |  Set the action to do when the user skips the slides |
+| footerRadius | `double`  |12.0  | Set the radius of the footer part of your slides  |
+| footerBgColor |`Color`   | `Color(0xff51adf6)`  |Set the background color of the footer part of your slides  |
+| footerGradients |`List<Color>`   | <Color>[]  |Set the list of colors for the gradient of the footer part of your slides  |
+| footerPadding | `EdgeInsets`  |  `EdgeInsets.all(24)` |  Set the padding of the footer part of your slides |
 | indicatorType | `IndicatorType`  |`IndicatorType.CIRCLE` |  Set the type of indicator for your slides  |
-|activeDotColor  |`Color`   |`Colors.white` |Set the color of the active indicator color|
-| inactiveDotColor  | `Color`  | null | Set the color of an inactive indicator color |
-| skipText  | `String`  |  "Skip" | Set the text of the skip widget |
+| activeDotColor |`Color`   |`Colors.white` |Set the color of the active indicator color|
+| inactiveDotColor |`Color` | null | Set the color of an inactive indicator color |
+| skipText  | `String` |  "Skip" | Set the text of the skip widget |
 | nextWidget | `Widget`  || Set the widget to use for next interaction of your slides|
-|doneWidget  | `Widget`  || Set the widget to display when the last slide is reached|
+| doneWidget | `Widget`  || Set the widget to display when the last slide is reached|
 | viewPortFraction  | `double`  |  1.0 |  Set the viewport fraction of your slides |
-| textColor  | `Color`  |`Colors.white` |  Set the text color of the footer part of your slides  |
+| textColor | `Color`  |`Colors.white` |  Set the text color of the footer part of your slides  |
+| physics | `ScrollPhysics` |`BouncingScrollPhysics` |  Set the physics for the page view  |
 
 #### IndicatorType enum properties
 
