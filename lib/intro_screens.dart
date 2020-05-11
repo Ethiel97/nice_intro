@@ -14,6 +14,8 @@ enum IndicatorType { CIRCLE, LINE, DIAMOND }
 enum FooterShape { NORMAL, CURVED_TOP, CURVED_BOTTOM }
 
 class IntroScreens extends StatefulWidget {
+//  PageController get controller => this.createState()._controller;
+
   @override
   _IntroScreensState createState() => _IntroScreensState();
 
@@ -124,7 +126,6 @@ class _IntroScreensState extends State<IntroScreens>
       });
 
     currentScreen = widget.slides[0];
-
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
   }
@@ -200,6 +201,9 @@ class _IntroScreensState extends State<IntroScreens>
                 setState(() {
                   currentPage = index;
                   currentScreen = widget.slides[currentPage];
+                  setState(() {
+                    currentScreen.index = currentPage + 1;
+                  });
                   if (currentPage == widget.slides.length - 1) {
                     lastPage = true;
                     animationController.forward();
@@ -235,7 +239,6 @@ class _IntroScreensState extends State<IntroScreens>
                 return buildPage(index: index);
               },
             ),
-
             //footer widget
             Positioned.fill(
               bottom: 0,
@@ -287,78 +290,86 @@ class _IntroScreensState extends State<IntroScreens>
                 ),
               ),
             ),
-
             //controls widget
             Positioned(
               left: 0,
               right: 0,
               bottom: 18,
               child: Padding(
-                padding: const EdgeInsets.all(
-                  8.0,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                 child: Container(
                   width: double.infinity,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       IgnorePointer(
                         ignoring: lastPage,
                         child: Opacity(
                           opacity: lastPage ? 0.0 : 1.0,
-                          child: FlatButton(
-                            child: Text(
-                              widget.skipText.toUpperCase(),
-                              style: textStyle,
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Text(
+                                widget.skipText.toUpperCase(),
+                                style: textStyle,
+                              ),
+                              onTap: widget.onSkip,
                             ),
-                            onPressed: widget.onSkip,
                           ),
                         ),
                       ),
-                      Spacer(),
-                      Container(
-                        width: 160,
-                        child: PageIndicator(
-                          type: widget.indicatorType,
-                          currentIndex: currentPage,
-                          activeDotColor: widget.activeDotColor,
-                          inactiveDotColor: widget.inactiveDotColor ??
-                              widget.activeDotColor.withOpacity(.5),
-                          pageCount: widget.slides.length,
-                          onTap: () {
-                            _controller.animateTo(
-                              _controller.page,
-                              duration: Duration(
-                                milliseconds: 400,
-                              ),
-                              curve: Curves.fastOutSlowIn,
-                            );
-                          },
+                      Expanded(
+                        child: Container(
+                          width: 160,
+                          child: PageIndicator(
+                            type: widget.indicatorType,
+                            currentIndex: currentPage,
+                            activeDotColor: widget.activeDotColor,
+                            inactiveDotColor: widget.inactiveDotColor ??
+                                widget.activeDotColor.withOpacity(.5),
+                            pageCount: widget.slides.length,
+                            onTap: () {
+                              _controller.animateTo(
+                                _controller.page,
+                                duration: Duration(
+                                  milliseconds: 400,
+                                ),
+                                curve: Curves.fastOutSlowIn,
+                              );
+                            },
+                          ),
                         ),
                       ),
-                      Spacer(),
-                      lastPage
-                          ? FlatButton(
-                              onPressed: widget.onDone,
-                              child: done,
-                            )
-                          : FlatButton(
-                              child: next,
-                              onPressed: () {
-                                _controller.nextPage(
+                      Material(
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        type: MaterialType.transparency,
+                        child: lastPage
+                            ? InkWell(
+                                borderRadius: BorderRadius.circular(100),
+                                onTap: widget.onDone,
+                                child: done,
+                              )
+                            : InkWell(
+                                borderRadius: BorderRadius.circular(100),
+                                child: next,
+                                onTap: () => _controller.nextPage(
                                     duration: Duration(milliseconds: 800),
-                                    curve: Curves.fastOutSlowIn);
-                              },
-                            ),
+                                    curve: Curves.fastOutSlowIn),
+                              ),
+                      )
                     ],
                   ),
                 ),
               ),
             ),
-
             //app title
-            Positioned(
-              top: 320,
+            /*Positioned(
+              top: 20,
               left: 0,
               right: 0,
               child: Padding(
@@ -369,7 +380,7 @@ class _IntroScreensState extends State<IntroScreens>
                       fontSizeDelta: 12, fontWeightDelta: 8, color: Colors.red),
                 ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -378,11 +389,14 @@ class _IntroScreensState extends State<IntroScreens>
 
   Widget buildPage({int index, double angle = 0.0, double scale = 1.0}) {
     // print(pageOffset - index);
-    return Transform(
-      child: widget.slides[index],
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, .001)
-        ..rotateY(angle),
+    return Container(
+      color: Colors.transparent,
+      child: Transform(
+        child: widget.slides[index],
+        transform: Matrix4.identity()
+          ..setEntry(3, 2, .001)
+          ..rotateY(angle),
+      ),
     );
   }
 }

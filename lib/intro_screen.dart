@@ -30,17 +30,25 @@ class IntroScreen extends StatelessWidget {
   ///[EdgeInsets]
   final EdgeInsets headerPadding;
 
-  const IntroScreen({
+  ///widget to use as the header part of your screen
+  ///[Widget]
+  final Widget header;
+
+  int _pageIndex;
+
+  IntroScreen({
     @required this.title,
     this.headerPadding = const EdgeInsets.all(12),
     @required this.description,
+    this.header,
     this.headerBgColor = Colors.white,
     this.textStyle,
-    @required this.imageAsset,
-  })  : assert(imageAsset != null),
-        assert(title != null),
+    this.imageAsset,
+  })  : assert(title != null),
         assert(description != null),
         assert(title != null);
+
+  set index(val) => this._pageIndex = val;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +65,21 @@ class IntroScreen extends StatelessWidget {
               color: headerBgColor,
             ),
             child: Center(
-              child: Image.asset(
-                imageAsset,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: screenSize.height * .3,
-              ),
+              child: imageAsset != null
+                  ? Image.asset(
+                      imageAsset,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: screenSize.height * .3,
+                    )
+                  : this.header ??
+                      Container(
+                        child: Text(
+                          "${this._pageIndex??1}",
+                          style: TextStyle(
+                              fontSize: 300, fontWeight: FontWeight.w900),
+                        ),
+                      ),
             ),
           ),
         ],

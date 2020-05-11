@@ -16,3 +16,8 @@
 
 * Minor update: updates the doc and the example
 * Add `physic` parameter to the `IntroScreens` class
+
+## [0.1.4] - [2020-05-011]
+
+* Minor update: updates the doc and the example
+* Add `header` parameter to the `IntroScreen` class to set a custom widget for the header of a slide

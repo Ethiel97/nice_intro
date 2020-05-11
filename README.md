@@ -24,7 +24,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.3
+  nice_intro: ^0.1.4
 ```
 
 ## Usage Example
@@ -88,7 +88,8 @@ And pass it to your scaffold widget.
 |---|---|---|---|
 |  title | `String`  | required  |Set the title of your slide  screen   |
 | description  | `String`  | required | Set the description of your slide screen  |
-| imageAsset  |`String`   | required | Set the image path of your slide screen  |
+| header  | `String`  | Container() | Set the widget to use as the header part of your screen  |
+| imageAsset  |`String`   | null | Set the image path of your slide screen  |
 | textStyle  |`TextStyle`  | null  | Set the style of the title and description of your slide|
 | headerBgColor  | `Color` | `Colors.white`  | Set the background color of the slide  |
 | headerPadding  | `EdgeInsets`  |  `EdgeInsets.all(12)` |  Set the padding of the header part of your slide screen  |
