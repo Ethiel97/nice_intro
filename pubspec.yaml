@@ -5,7 +5,7 @@ version: 0.1.4
 homepage: https://github.com/Ethiel97/nice_intro
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   flutter:
