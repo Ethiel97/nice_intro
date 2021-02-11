@@ -51,7 +51,7 @@ class IntroScreens extends StatefulWidget {
 
   ///defines what to do when the skip button is tapped
   ///[Function]
-  final Function onSkip;
+  final Function onSkip; // WE NO LONGER NEED THIS
 
   ///defines what to do when the last slide is reached
   ///[Function]
@@ -93,7 +93,7 @@ class IntroScreens extends StatefulWidget {
     this.indicatorType = IndicatorType.CIRCLE,
     this.appTitle = '',
     this.physics = const BouncingScrollPhysics(),
-    @required this.onSkip,
+    this.onSkip, // OPTIONAL
     this.nextWidget,
     this.doneWidget,
     this.activeDotColor = Colors.white,
@@ -315,7 +315,14 @@ class _IntroScreensState extends State<IntroScreens>
                                 widget.skipText.toUpperCase(),
                                 style: textStyle,
                               ),
-                              onTap: widget.onSkip,
+                              onTap: () {
+                                animationController.forward();
+                                _controller.animateToPage(
+                                  widget.slides.length - 1,
+                                  duration: Duration(milliseconds: 400),
+                                  curve: Curves.fastOutSlowIn,
+                                );
+                              },
                             ),
                           ),
                         ),
