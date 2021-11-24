@@ -21,3 +21,7 @@
 
 * Minor update: updates the doc and the example
 * Add `header` parameter to the `IntroScreen` class to set a custom widget for the header of a slide
+
+## [0.1.5-nullsafety.0] - [2021-24-11]
+
+* Minor update: migrates to null safety
