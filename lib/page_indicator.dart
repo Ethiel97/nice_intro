@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:nice_intro/intro_screens.dart';
 
 class PageIndicator extends StatelessWidget {
-  final int currentIndex;
-  final int pageCount;
-  final Color activeDotColor;
-  final Color inactiveDotColor;
-  final IndicatorType type;
-  final VoidCallback onTap;
+  final int? currentIndex;
+  final int? pageCount;
+  final Color? activeDotColor;
+  final Color? inactiveDotColor;
+  final IndicatorType? type;
+  final VoidCallback? onTap;
 
   PageIndicator({
     this.currentIndex,
@@ -33,7 +33,7 @@ class PageIndicator extends StatelessWidget {
 
   _buildPageIndicators() {
     List<Widget> indicatorList = [];
-    for (int i = 0; i < pageCount; i++) {
+    for (int i = 0; i < pageCount!; i++) {
       indicatorList
           .add(i == currentIndex ? _indicator(true) : _indicator(false));
     }

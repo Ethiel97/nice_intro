@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nice_intro/page_indicator.dart';
-import 'package:tinycolor/tinycolor.dart';
 
 import 'intro_screen.dart';
 
@@ -25,11 +24,11 @@ class IntroScreens extends StatefulWidget {
 
   ///sets the next widget, the one used to move to the next screen
   ///[Widget]
-  final Widget nextWidget;
+  final Widget? nextWidget;
 
   ///sets the done widget, the one used to end the slides
   ///[Widget]
-  final Widget doneWidget;
+  final Widget? doneWidget;
 
   final String appTitle;
 
@@ -63,7 +62,7 @@ class IntroScreens extends StatefulWidget {
 
   ///set the color of an inactive indicator
   ///[Color]
-  final Color inactiveDotColor;
+  final Color? inactiveDotColor;
 
   ///sets the padding of the footer part of your slides
   ///[EdgeInsets]
@@ -86,14 +85,14 @@ class IntroScreens extends StatefulWidget {
   final ScrollPhysics physics;
 
   const IntroScreens({
-    @required this.slides,
+    required this.slides,
     this.footerRadius = 12.0,
     this.footerGradients = const [],
-    @required this.onDone,
+    required this.onDone,
     this.indicatorType = IndicatorType.CIRCLE,
     this.appTitle = '',
     this.physics = const BouncingScrollPhysics(),
-    @required this.onSkip,
+    required this.onSkip,
     this.nextWidget,
     this.doneWidget,
     this.activeDotColor = Colors.white,
@@ -108,12 +107,12 @@ class IntroScreens extends StatefulWidget {
 
 class _IntroScreensState extends State<IntroScreens>
     with TickerProviderStateMixin {
-  PageController _controller;
-  double pageOffset = 0;
+  PageController? _controller;
+  double? pageOffset = 0;
   int currentPage = 0;
   bool lastPage = false;
-  AnimationController animationController;
-  IntroScreen currentScreen;
+  late AnimationController animationController;
+  IntroScreen? currentScreen;
 
   @override
   void initState() {
@@ -122,7 +121,7 @@ class _IntroScreensState extends State<IntroScreens>
       initialPage: currentPage,
       viewportFraction: widget.viewPortFraction,
     )..addListener(() {
-        pageOffset = _controller.page;
+        pageOffset = _controller!.page;
       });
 
     currentScreen = widget.slides[0];
@@ -131,7 +130,7 @@ class _IntroScreensState extends State<IntroScreens>
   }
 
   TextStyle get textStyle =>
-      currentScreen.textStyle ??
+      currentScreen!.textStyle ??
       GoogleFonts.lato(
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal);
 
@@ -153,7 +152,7 @@ class _IntroScreensState extends State<IntroScreens>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     animationController.dispose();
     super.dispose();
   }
@@ -173,7 +172,7 @@ class _IntroScreensState extends State<IntroScreens>
         );
 
   int getCurrentPage() {
-    return _controller.page.floor();
+    return _controller!.page!.floor();
   }
 
   @override
@@ -181,8 +180,7 @@ class _IntroScreensState extends State<IntroScreens>
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor:
-            TinyColor(currentScreen?.headerBgColor).setOpacity(.8).color ??
-                Colors.transparent,
+            currentScreen?.headerBgColor.withOpacity(.8) ?? Colors.transparent,
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor:
             currentScreen?.headerBgColor ?? Colors.transparent,
@@ -202,7 +200,7 @@ class _IntroScreensState extends State<IntroScreens>
                   currentPage = index;
                   currentScreen = widget.slides[currentPage];
                   setState(() {
-                    currentScreen.index = currentPage + 1;
+                    currentScreen!.index = currentPage + 1;
                   });
                   if (currentPage == widget.slides.length - 1) {
                     lastPage = true;
@@ -216,22 +214,22 @@ class _IntroScreensState extends State<IntroScreens>
               controller: _controller,
               physics: widget.physics,
               itemBuilder: (context, index) {
-                if (index == pageOffset.floor()) {
+                if (index == pageOffset!.floor()) {
                   return AnimatedBuilder(
-                      animation: _controller,
+                      animation: _controller!,
                       builder: (context, _) {
                         return buildPage(
                           index: index,
-                          angle: pageOffset - index,
+                          angle: pageOffset! - index,
                         );
                       });
-                } else if (index == pageOffset.floor() + 1) {
+                } else if (index == pageOffset!.floor() + 1) {
                   return AnimatedBuilder(
-                    animation: _controller,
+                    animation: _controller!,
                     builder: (context, _) {
                       return buildPage(
                         index: index,
-                        angle: pageOffset - index,
+                        angle: pageOffset! - index,
                       );
                     },
                   );
@@ -263,11 +261,11 @@ class _IntroScreensState extends State<IntroScreens>
                         height: 24,
                       ),
                       Text(
-                        currentScreen.title,
+                        currentScreen!.title!,
                         softWrap: true,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: textStyle?.apply(
+                        style: textStyle.apply(
                           color: widget.textColor,
                           fontWeightDelta: 12,
                           fontSizeDelta: 10,
@@ -278,10 +276,10 @@ class _IntroScreensState extends State<IntroScreens>
                         height: 24,
                       ),
                       Text(
-                        currentScreen.description,
+                        currentScreen!.description!,
                         softWrap: true,
-                        style: textStyle?.apply(
-                          color: TinyColor(widget.textColor).darken(8).color,
+                        style: textStyle.apply(
+                          color: widget.textColor,
                         ),
                         textAlign: TextAlign.center,
                       )
@@ -315,7 +313,7 @@ class _IntroScreensState extends State<IntroScreens>
                                 widget.skipText.toUpperCase(),
                                 style: textStyle,
                               ),
-                              onTap: widget.onSkip,
+                              onTap: widget.onSkip as void Function()?,
                             ),
                           ),
                         ),
@@ -331,8 +329,8 @@ class _IntroScreensState extends State<IntroScreens>
                                 widget.activeDotColor.withOpacity(.5),
                             pageCount: widget.slides.length,
                             onTap: () {
-                              _controller.animateTo(
-                                _controller.page,
+                              _controller!.animateTo(
+                                _controller!.page!,
                                 duration: Duration(
                                   milliseconds: 400,
                                 ),
@@ -351,13 +349,13 @@ class _IntroScreensState extends State<IntroScreens>
                         child: lastPage
                             ? InkWell(
                                 borderRadius: BorderRadius.circular(100),
-                                onTap: widget.onDone,
+                                onTap: widget.onDone as void Function()?,
                                 child: done,
                               )
                             : InkWell(
                                 borderRadius: BorderRadius.circular(100),
                                 child: next,
-                                onTap: () => _controller.nextPage(
+                                onTap: () => _controller!.nextPage(
                                     duration: Duration(milliseconds: 800),
                                     curve: Curves.fastOutSlowIn),
                               ),
@@ -387,7 +385,8 @@ class _IntroScreensState extends State<IntroScreens>
     );
   }
 
-  Widget buildPage({int index, double angle = 0.0, double scale = 1.0}) {
+  Widget buildPage(
+      {required int index, double angle = 0.0, double scale = 1.0}) {
     // print(pageOffset - index);
     return Container(
       color: Colors.transparent,

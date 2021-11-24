@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nice_intro/intro_screen.dart';
 import 'package:nice_intro/intro_screens.dart';
-import 'package:tinycolor/tinycolor.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +35,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         ),
       ),
       onSkip: () => print('Skipping the intro slides'),
-      footerBgColor: TinyColor(Colors.blue).lighten().color,
+      footerBgColor: Colors.blue.withOpacity(.8),
       activeDotColor: Colors.white,
       footerRadius: 18.0,
 //      indicatorType: IndicatorType.CIRCLE,
