@@ -1,6 +1,6 @@
 name: nice_intro
 description: Get your users to know your app with ease! This package will help you build beautiful intro sides for your app.
-version: 0.1.5-nullsafety.0
+version: 0.1.5
 homepage: https://github.com/Ethiel97/nice_intro
 
 environment:
