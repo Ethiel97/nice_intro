@@ -12,20 +12,20 @@ class PageIndicator extends StatelessWidget {
   final IndicatorType? type;
   final VoidCallback? onTap;
 
-  PageIndicator({
+  const PageIndicator({
     this.currentIndex,
     this.pageCount,
     this.activeDotColor,
     this.onTap,
     this.inactiveDotColor,
-    this.type,
-  });
+    this.type,Key?key,
+  }):super(key:key);
 
   _indicator(bool isActive) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
         child: buildIndicatorShape(type, isActive),
       ),
     );
@@ -42,7 +42,7 @@ class PageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: _buildPageIndicators(),
@@ -64,7 +64,7 @@ class PageIndicator extends StatelessWidget {
           width: type == IndicatorType.CIRCLE || type == IndicatorType.DIAMOND
               ? 8.0
               : 24.0,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           decoration: decoration(isActive, type),
         ),
       ),
@@ -85,7 +85,7 @@ class PageIndicator extends StatelessWidget {
           color: Colors.black.withOpacity(
             .02,
           ),
-          offset: Offset(0.0, 2.0),
+          offset: const Offset(0.0, 2.0),
           blurRadius: 2.0,
         )
       ],

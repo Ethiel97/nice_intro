@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatefulWidget {
   ///This is a builder for an intro screen
   ///
   ///
@@ -33,9 +33,7 @@ class IntroScreen extends StatelessWidget {
   ///[Widget]
   final Widget? header;
 
-  int? _pageIndex;
-
-  IntroScreen({
+  const IntroScreen({
     required String this.title,
     this.headerPadding = const EdgeInsets.all(12),
     required String this.description,
@@ -43,38 +41,46 @@ class IntroScreen extends StatelessWidget {
     this.headerBgColor = Colors.white,
     this.textStyle,
     this.imageAsset,
-  });
+    Key? key,
+  }) : super(key: key);
 
-  set index(val) => this._pageIndex = val;
+  @override
+  State<IntroScreen> createState() => _IntroScreenState();
+}
+
+class _IntroScreenState extends State<IntroScreen> {
+  int? _pageIndex;
+
+  set index(val) => _pageIndex = val;
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: screenSize.height,
       child: Column(
         children: <Widget>[
           Container(
             height: screenSize.height * .666,
-            padding: headerPadding,
+            padding: widget.headerPadding,
             decoration: BoxDecoration(
-              color: headerBgColor,
+              color: widget.headerBgColor,
             ),
             child: Center(
-              child: imageAsset != null
+              child: widget.imageAsset != null
                   ? Image.asset(
-                      imageAsset!,
+                      widget.imageAsset!,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: screenSize.height * .3,
                     )
-                  : this.header ??
-                      Container(
-                        child: Text(
-                          "${this._pageIndex ?? 1}",
-                          style: TextStyle(
-                              fontSize: 300, fontWeight: FontWeight.w900),
+                  : widget.header ??
+                      Text(
+                        '${_pageIndex ?? 1}',
+                        style: const TextStyle(
+                          fontSize: 300,
+                          fontWeight: FontWeight.w900,
                         ),
                       ),
             ),

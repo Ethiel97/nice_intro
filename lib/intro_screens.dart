@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -101,8 +103,8 @@ class IntroScreens extends StatefulWidget {
     this.viewPortFraction = 1.0,
     this.textColor = Colors.white,
     this.footerPadding = const EdgeInsets.all(24),
-    this.footerBgColor = const Color(0xff51adf6),
-  }) : assert(slides.length > 0);
+    this.footerBgColor = const Color(0xff51adf6),Key?key,
+  }) : assert(slides.length > 0), super(key:key);
 }
 
 class _IntroScreensState extends State<IntroScreens>
@@ -126,7 +128,7 @@ class _IntroScreensState extends State<IntroScreens>
 
     currentScreen = widget.slides[0];
     animationController =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+        AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
   }
 
   TextStyle get textStyle =>
@@ -135,7 +137,7 @@ class _IntroScreensState extends State<IntroScreens>
           fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal);
 
   Widget get next =>
-      this.widget.nextWidget ??
+      widget.nextWidget ??
       Icon(
         Icons.arrow_forward,
         size: 28,
@@ -143,7 +145,7 @@ class _IntroScreensState extends State<IntroScreens>
       );
 
   Widget get done =>
-      this.widget.doneWidget ??
+      widget.doneWidget ??
       Icon(
         Icons.check,
         size: 28,
@@ -157,7 +159,7 @@ class _IntroScreensState extends State<IntroScreens>
     super.dispose();
   }
 
-  bool get existGradientColors => widget.footerGradients.length > 0;
+  bool get existGradientColors => widget.footerGradients.isNotEmpty;
 
   LinearGradient get gradients => existGradientColors
       ? LinearGradient(
@@ -257,7 +259,7 @@ class _IntroScreensState extends State<IntroScreens>
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       Text(
@@ -272,7 +274,7 @@ class _IntroScreensState extends State<IntroScreens>
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       Text(
@@ -296,7 +298,7 @@ class _IntroScreensState extends State<IntroScreens>
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -319,7 +321,7 @@ class _IntroScreensState extends State<IntroScreens>
                         ),
                       ),
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           width: 160,
                           child: PageIndicator(
                             type: widget.indicatorType,
@@ -331,7 +333,7 @@ class _IntroScreensState extends State<IntroScreens>
                             onTap: () {
                               _controller!.animateTo(
                                 _controller!.page!,
-                                duration: Duration(
+                                duration: const Duration(
                                   milliseconds: 400,
                                 ),
                                 curve: Curves.fastOutSlowIn,
@@ -356,7 +358,7 @@ class _IntroScreensState extends State<IntroScreens>
                                 borderRadius: BorderRadius.circular(100),
                                 child: next,
                                 onTap: () => _controller!.nextPage(
-                                    duration: Duration(milliseconds: 800),
+                                    duration: const Duration(milliseconds: 800),
                                     curve: Curves.fastOutSlowIn),
                               ),
                       )

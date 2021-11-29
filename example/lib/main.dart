@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:nice_intro/intro_screen.dart';
 import 'package:nice_intro/intro_screens.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,13 +14,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   MyHomePageState createState() {
     return MyHomePageState();
@@ -31,7 +35,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     var screens = IntroScreens(
       onDone: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => NextPage(),
+          builder: (context) => const NextPage(),
         ),
       ),
       onSkip: () => print('Skipping the intro slides'),
@@ -39,7 +43,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       activeDotColor: Colors.white,
       footerRadius: 18.0,
 //      indicatorType: IndicatorType.CIRCLE,
-      slides: [
+      slides: const [
         IntroScreen(
           title: 'Search',
           imageAsset: 'assets/img/1.png',
@@ -56,7 +60,7 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           title: 'Social',
           headerBgColor: Colors.white,
           imageAsset: 'assets/img/3.png',
-          description: "Keep talking with your mates",
+          description: 'Keep talking with your mates',
         ),
       ],
     );
@@ -68,6 +72,8 @@ class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 }
 
 class NextPage extends StatefulWidget {
+  const NextPage({Key? key}) : super(key: key);
+
   @override
   _NextPageState createState() => _NextPageState();
 }
