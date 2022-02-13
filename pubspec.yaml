@@ -1,6 +1,6 @@
 name: nice_intro
 description: Get your users to know your app with ease! This package will help you build beautiful intro sides for your app.
-version: 0.1.5
+version: 0.1.6
 homepage: https://github.com/Ethiel97/nice_intro
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^2.1.0
+  google_fonts: ^2.3.1
 
 dev_dependencies:
   flutter_test:

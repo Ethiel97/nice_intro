@@ -6,16 +6,14 @@
 
 * Minor update: update package description
 
-
 ## [0.1.2] - [2020-04-27]
 
 * Minor update: update the doc and the example
 
-
 ## [0.1.3] - [2020-05-04]
 
 * Minor update: updates the doc and the example
-* Add `physic` parameter to the `IntroScreens` class
+* Add `physics` parameter to the `IntroScreens` class
 
 ## [0.1.4] - [2020-05-011]
 
@@ -29,3 +27,7 @@
 ## [0.1.5] - [2021-24-11]
 
 * Minor update: fully migrates to null safety
+
+## [0.1.6] - [2022-13-02]
+
+* Minor update: make intro screen texts use default body text theme style

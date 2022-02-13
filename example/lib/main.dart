@@ -6,23 +6,19 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'intro screen demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'intro screen demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(),
+        debugShowCheckedModeBanner: false,
+      );
 }
 
 class MyHomePage extends StatefulWidget {
   @override
-  MyHomePageState createState() {
-    return MyHomePageState();
-  }
+  MyHomePageState createState() => MyHomePageState();
 }
 
 class MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
@@ -74,9 +70,7 @@ class NextPage extends StatefulWidget {
 
 class _NextPageState extends State<NextPage> {
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-    );
-  }
+  Widget build(BuildContext context) => Container(
+        color: Colors.white,
+      );
 }

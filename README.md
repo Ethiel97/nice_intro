@@ -4,7 +4,8 @@ Get your users to know your app with ease
 
 ## Getting Started
 
-Onboarding is a great way to introduce your app to newcomers, to help them quickly adapt to the new conditions so that they can get the most out of your app
+Onboarding is a great way to introduce your app to newcomers, to help them quickly adapt to the new
+conditions so that they can get the most out of your app
 
 ![Pub Version](https://img.shields.io/pub/v/nice_intro)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/devEnthusiast?locale.x=en_US)
@@ -24,7 +25,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.4
+  nice_intro: ^0.1.6
 ```
 
 ## Usage Example
@@ -78,6 +79,7 @@ IntroScreens introScreens = IntroScreens(
       body: introScreens,
     );
 ```
+
 And pass it to your scaffold widget.
 
 ### Documentation

@@ -131,8 +131,12 @@ class _IntroScreensState extends State<IntroScreens>
 
   TextStyle get textStyle =>
       currentScreen!.textStyle ??
+      Theme.of(context).textTheme.bodyText1 ??
       GoogleFonts.lato(
-          fontSize: 18, color: Colors.white, fontWeight: FontWeight.normal);
+        fontSize: 18,
+        color: Colors.white,
+        fontWeight: FontWeight.normal,
+      );
 
   Widget get next =>
       this.widget.nextWidget ??
@@ -171,9 +175,7 @@ class _IntroScreensState extends State<IntroScreens>
           ],
         );
 
-  int getCurrentPage() {
-    return _controller!.page!.floor();
-  }
+  int getCurrentPage() => _controller!.page!.floor();
 
   @override
   Widget build(BuildContext context) {

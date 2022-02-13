@@ -49,7 +49,9 @@ class IntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    var screenSize = MediaQuery
+        .of(context)
+        .size;
     return Container(
       width: double.infinity,
       height: screenSize.height,
@@ -64,19 +66,19 @@ class IntroScreen extends StatelessWidget {
             child: Center(
               child: imageAsset != null
                   ? Image.asset(
-                      imageAsset!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: screenSize.height * .3,
-                    )
+                imageAsset!,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: screenSize.height * .3,
+              )
                   : this.header ??
-                      Container(
-                        child: Text(
-                          "${this._pageIndex ?? 1}",
-                          style: TextStyle(
-                              fontSize: 300, fontWeight: FontWeight.w900),
-                        ),
-                      ),
+                  Container(
+                    child: Text(
+                      "${this._pageIndex ?? 1}",
+                      style: TextStyle(
+                        fontSize: 300, fontWeight: FontWeight.w900,),
+                    ),
+                  ),
             ),
           ),
         ],
