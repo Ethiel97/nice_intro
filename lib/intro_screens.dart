@@ -84,6 +84,11 @@ class IntroScreens extends StatefulWidget {
   ///sets the physics for the page view
   final ScrollPhysics physics;
 
+
+  ///sets the background color of the global container (not changing with scrolling)
+  ///[Color]
+  final Color containerBg;
+
   const IntroScreens({
     required this.slides,
     this.footerRadius = 12.0,
@@ -100,6 +105,7 @@ class IntroScreens extends StatefulWidget {
     this.skipText = 'skip',
     this.viewPortFraction = 1.0,
     this.textColor = Colors.white,
+    this.containerBg = Colors.white,
     this.footerPadding = const EdgeInsets.all(24),
     this.footerBgColor = const Color(0xff51adf6),
   }) : assert(slides.length > 0);
