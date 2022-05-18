@@ -25,7 +25,7 @@ Add the following to pubspec.yaml:
 
 ```yaml
 dependencies:
-  nice_intro: ^0.1.6
+  nice_intro: ^0.2.0
 ```
 
 ## Usage Example
@@ -95,6 +95,7 @@ And pass it to your scaffold widget.
 | textStyle  |`TextStyle`  | null  | Set the style of the title and description of your slide|
 | headerBgColor  | `Color` | `Colors.white`  | Set the background color of the slide  |
 | headerPadding  | `EdgeInsets`  |  `EdgeInsets.all(12)` |  Set the padding of the header part of your slide screen  |
+| containerBg  | `Color`  |  `Colors.white` |  Set the wrapper container's background color  |
 
 #### IntroScreens widget's properties
 

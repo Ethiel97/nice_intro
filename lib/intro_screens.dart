@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +47,7 @@ class IntroScreens extends StatefulWidget {
 
   ///defines what to do when the skip button is tapped
   ///[Function]
-  final Function onSkip;
+  final Function? onSkip;
 
   ///defines what to do when the last slide is reached
   ///[Function]
@@ -84,15 +81,20 @@ class IntroScreens extends StatefulWidget {
   ///sets the physics for the page view
   final ScrollPhysics physics;
 
+  ///[Color]
+  ///sets the wrapper container's background color, defaults to white
+  final Color containerBg;
+
   const IntroScreens({
     required this.slides,
     this.footerRadius = 12.0,
     this.footerGradients = const [],
+    this.containerBg = Colors.white,
     required this.onDone,
     this.indicatorType = IndicatorType.CIRCLE,
     this.appTitle = '',
     this.physics = const BouncingScrollPhysics(),
-    required this.onSkip,
+    this.onSkip,
     this.nextWidget,
     this.doneWidget,
     this.activeDotColor = Colors.white,
@@ -128,6 +130,14 @@ class _IntroScreensState extends State<IntroScreens>
     animationController =
         AnimationController(duration: Duration(milliseconds: 500), vsync: this);
   }
+
+  get onSkip => this.widget.onSkip != null ? this.widget.onSkip : defaultOnSkip;
+
+  defaultOnSkip() => animationController.animateTo(
+        widget.slides.length - 1,
+        duration: Duration(milliseconds: 400),
+        curve: Curves.fastOutSlowIn,
+      );
 
   TextStyle get textStyle =>
       currentScreen!.textStyle ??
@@ -188,12 +198,11 @@ class _IntroScreensState extends State<IntroScreens>
             currentScreen?.headerBgColor ?? Colors.transparent,
       ),
       child: Container(
-        color: Colors.white,
+        color: this.widget.containerBg,
 //        height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Stack(
-          overflow: Overflow.visible,
-          fit: StackFit.expand,
+          clipBehavior: Clip.none,
           children: <Widget>[
             PageView.builder(
               itemCount: widget.slides.length,
@@ -315,7 +324,7 @@ class _IntroScreensState extends State<IntroScreens>
                                 widget.skipText.toUpperCase(),
                                 style: textStyle,
                               ),
-                              onTap: widget.onSkip as void Function()?,
+                              onTap: onSkip,
                             ),
                           ),
                         ),

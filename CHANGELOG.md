@@ -31,3 +31,13 @@
 ## [0.1.6] - [2022-13-02]
 
 * Minor update: make intro screen texts use default body text theme style
+
+## [0.1.7] - [2022-05-18]
+
+* Minor update: migrate to Flutter 3.0
+
+
+## [0.2.0] - [2022-05-18]
+
+* Add default behavior the `onSkip` parameter of the `IntroScreens`
+* Add `containerBg` parameter to the `IntroScreens` class to set the color for the wrapper container
